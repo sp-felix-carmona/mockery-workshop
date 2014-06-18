@@ -2,7 +2,7 @@
 
 namespace Workshop;
 
-interface ResultsProvider
+interface PlayersRepository
 {
     public function getAll();
 }
