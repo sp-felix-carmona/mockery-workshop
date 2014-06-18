@@ -44,6 +44,18 @@ class RankingTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testTopPremiumPlayer() {
-
+        $playersRepository = \Mockery::mock('\Workshop\PlayersRepository');
+        $players = array(
+            'juan' => 12,
+            'pepe' => 38,
+            'manu' => 99
+        );
+        $playersRepository->shouldReceive('getAll')->andReturn($players);
+        $playersRepository->shouldReceive('getPlayerObject->isPremium')->withArgs(array('juan'))->andReturn(true);
+        $playersRepository->shouldReceive('getPlayerObject->isPremium')->withArgs(array('pepe'))->andReturn(true);
+        $playersRepository->shouldReceive('getPlayerObject->isPremium')->andReturn(false);
+        $ranking = new Ranking($playersRepository);
+        $result = $ranking->getTopPremiumPlayer();
+        $this->assertEquals('pepe', $result);
     }
 }
