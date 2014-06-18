@@ -26,4 +26,22 @@ class Ranking
             }
         }
     }
+
+    public function getTopPremiumPlayer() {
+        $playerResults = $this->playersRepository->getAll();
+        $rank = array();
+        foreach ($playerResults as $name => $points) {
+            if($this->isPremiumRanking($name)) {
+                $rank[$name] = $points;
+            }
+        }
+        asort($rank);
+        $rank = array_keys(array_reverse($rank));
+        return $rank[0];
+    }
+
+    public function isPremiumRanking($name) {
+        $playerObject = $this->playersRepository->getPlayerObject($name);
+        return $playerObject->isPremium($name);
+    }
 }

@@ -25,6 +25,25 @@ class RankingTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testCleanHackers() {
+        $playersRepository = \Mockery::mock('\Workshop\PlayersRepository');
+        $players = array(
+            'paco' => 134,
+            'paca' => 99999,
+            'juan' => 444444,
+            'pepe' => 22222,
+            'manu' => 99
+        );
+
+        $playersRepository->shouldReceive('getAll')->andReturn($players);
+        $playersRepository->shouldReceive('delete')->withArgs(array('paca'));
+        $playersRepository->shouldReceive('delete')->withArgs(array('juan'));
+        $playersRepository->shouldReceive('delete')->withArgs(array('pepe'));
+
+        $ranking = new Ranking($playersRepository);
+        $ranking->cleanHackers();
+    }
+
+    public function testTopPremiumPlayer() {
 
     }
 }
