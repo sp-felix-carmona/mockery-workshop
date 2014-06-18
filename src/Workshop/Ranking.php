@@ -17,4 +17,13 @@ class Ranking
         $top3 = array_keys(array_slice($playerResults, 0, 3));
         return $top3;
     }
+
+    public function cleanHackers() {
+        $playerResults = $this->playersRepository->getAll();
+        foreach($playerResults as $name => $points) {
+            if($points > 9999) {
+                $this->playersRepository->delete($name);
+            }
+        }
+    }
 }
