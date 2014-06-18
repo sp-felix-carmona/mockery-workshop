@@ -7,7 +7,16 @@ use Workshop\Ranking;
 class RankingTest extends \PHPUnit_Framework_TestCase
 {
     public function testTopPlayers() {
-        $ranking = new Ranking();
+        $m = \Mockery::mock('\Workshop\ResultsProvider');
+        $data = array(
+            'paco' => 134,
+            'paca' => 1543,
+            'juan' => 12,
+            'pepe' => 38,
+            'manu' => 99
+        );
+        $m->shouldReceive('getAll')->andReturn($data);
+        $ranking = new Ranking($m);
 
         $result = $ranking->getTop3Players();
 
