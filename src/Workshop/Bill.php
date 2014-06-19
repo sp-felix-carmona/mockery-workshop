@@ -6,13 +6,14 @@ class Bill
 {
     protected $expenses;
 
-    public function __construct(Expenses $expenses) {
+    public function __construct(Expenses $expenses, $applyDiscounts = false)
+    {
         $this->expenses = $expenses;
+        $this->applyDiscounts = $applyDiscounts;
     }
 
-    public function getBillForUser($user) {
-        $expenses = $this->expenses->getExpensesOfUser($user);
-        $priceWithTaxes = $expenses * 1.21;
-        return $priceWithTaxes;
+    public function getBillForUser($user)
+    {
+
     }
 }
