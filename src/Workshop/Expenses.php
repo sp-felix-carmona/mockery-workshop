@@ -11,6 +11,7 @@ class Expenses
     public function getExpensesOfUserWithDiscount($user) {
         $expenses = $this->getExpensesOfUser($user);
         if ($this->discount > 0) {
+            $this->logDiscount('applying discount!');
             return $expenses - ($expenses * ($this->discount / 100));
         }
         return $expenses;
@@ -26,6 +27,10 @@ class Expenses
     }
 
     protected function getBoughtProducts($user) {
+        die('this is an api request, and you can not perform it in a test.');
+    }
+
+    protected function logDiscount($message) {
         die('this is an api request, and you can not perform it in a test.');
     }
 }
